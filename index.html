@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости услуги</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <h2>Калькулятор стоимости услуги</h2>
+        
+        <div class="form-group">
+            <label for="quantity">Количество:</label>
+            <input type="number" id="quantity" min="1" value="1">
+        </div>
+        
+        <div class="form-group">
+            <label>Тип услуги:</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="type1" name="serviceType" value="basic" checked>
+                    <label for="type1">Базовая услуга</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="type2" name="serviceType" value="premium">
+                    <label for="type2">Премиум услуга</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="type3" name="serviceType" value="custom">
+                    <label for="type3">Кастомная услуга</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group hidden" id="optionsGroup">
+            <label for="options">Опции услуги:</label>
+            <select id="options">
+                <option value="standard">Стандартная опция</option>
+                <option value="advanced">Продвинутая опция</option>
+                <option value="professional">Профессиональная опция</option>
+            </select>
+        </div>
+        
+        <div class="form-group hidden" id="propertyGroup">
+            <div class="checkbox-group">
+                <input type="checkbox" id="property">
+                <label for="property">Дополнительное свойство (+20% к стоимости)</label>
+            </div>
+        </div>
+        
+        <div class="price-display" id="priceDisplay">
+            Итоговая стоимость: 100 руб.
+        </div>
+    </div>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
