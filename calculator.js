@@ -22,7 +22,7 @@ const priceDisplay = document.getElementById('priceDisplay');
 function validateQuantity() {
     const quantity = parseInt(quantityInput.value);
     
-    if (quantity <= 0 || isNaN(quantity)) {
+    if (isNaN(quantity) || quantity <= 0) {
         quantityInput.style.border = '2px solid red';
         priceDisplay.textContent = 'Ошибка: введите корректное количество (больше 0)';
         priceDisplay.style.color = 'red';
@@ -31,6 +31,16 @@ function validateQuantity() {
         quantityInput.style.border = '';
         priceDisplay.style.color = '';
         return true;
+    }
+}
+
+
+function correctQuantityInput() {
+    const quantity = parseInt(quantityInput.value);
+    
+    if (isNaN(quantity) || quantity < 1) {
+        quantityInput.value = 1;
+        validateQuantity();
     }
 }
 
@@ -88,9 +98,42 @@ function initEventListeners() {
         calculatePrice();
     });
     
-    
+
     quantityInput.addEventListener('blur', function() {
-        validateQuantity();
+        correctQuantityInput();
+        calculatePrice();
+    });
+    
+   
+    quantityInput.addEventListener('keydown', function(e) {
+        
+        if ([46, 8, 9, 27, 13, 110, 190].includes(e.keyCode) ||
+            
+            (e.keyCode === 65 && e.ctrlKey === true) ||
+            (e.keyCode === 67 && e.ctrlKey === true) ||
+            (e.keyCode === 86 && e.ctrlKey === true) ||
+            (e.keyCode === 88 && e.ctrlKey === true) ||
+            
+            (e.keyCode >= 48 && e.keyCode <= 57) ||
+            
+            (e.keyCode >= 96 && e.keyCode <= 105)) {
+            return;
+        }
+        
+        
+        if (e.keyCode === 189 || e.keyCode === 109) { 
+            e.preventDefault();
+            return;
+        }
+    });
+    
+    
+    quantityInput.addEventListener('paste', function(e) {
+        const pastedData = e.clipboardData.getData('text/plain');
+        if (pastedData.includes('-') || parseInt(pastedData) <= 0) {
+            e.preventDefault();
+            alert('Нельзя вставлять отрицательные числа или ноль');
+        }
     });
     
     serviceTypeRadios.forEach(radio => {
